@@ -7,10 +7,9 @@ namespace ChessGameConsole
     {
         static void Main(string[] args)
         {
-            Position P;
+            BoardTable newBoard = new BoardTable(8,8);
+            ScreenController.PrintBoard(newBoard);
 
-            P = new Position(3, 4);
-            Console.WriteLine(P.ToString());
         }
     }
 }

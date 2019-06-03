@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChessGameConsole.Board
+namespace Board
 {
-    class Color
+    enum Color
     {
+        White = 0,
+        Black = 1,
     }
 }
