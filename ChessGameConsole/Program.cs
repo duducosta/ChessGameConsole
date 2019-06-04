@@ -11,9 +11,10 @@ namespace ChessGameConsole
             BoardTable newBoard = new BoardTable(8, 8);
             Piece rei = new Rei(Color.White, newBoard);
             newBoard.AddressPiece(rei, new Position(0, 0));
-            Piece torre = new Torre(Color.White, newBoard);
-            newBoard.AddressPiece(torre, new Position(0, 0));
 
+
+            ChessPositions test = new ChessPositions('a', 1);
+            Console.WriteLine(test.TranslateChessToZeroBased());
 
 
             ScreenController.PrintBoard(newBoard);
