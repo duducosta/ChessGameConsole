@@ -11,11 +11,14 @@ namespace ChessGameConsole
         {
             for (int i = 0; i < board.Lines; i++)
             {
+                Console.Write(8 - i + ") ");
                 for (int j = 0; j < board.Lines; j++)
                 {
                     if (board.GetPiece(i, j) != null)
                     {
-                        Console.Write(board.GetPiece(i, j).ToString() + " ");  //fazer identificação da peça
+                        ChangeToPieceColor(board.GetPiece(i, j));
+                        Console.Write(board.GetPiece(i, j).ToString() + " ");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -25,6 +28,19 @@ namespace ChessGameConsole
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
+            Console.WriteLine("   ^ ^ ^ ^ ^ ^ ^ ^");
+            Console.WriteLine("   a b c d e f g h");
         }
+
+        public static void ChangeToPieceColor(Piece piece)
+        {
+            if (piece.Color == Color.Black)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+            }
+        }
+
+
     }
 }
