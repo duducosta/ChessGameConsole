@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Board
 {
     class BoardTable
@@ -17,17 +18,65 @@ namespace Board
             Columns = columns;
             piecesArrangement = new Piece[lines, columns];
         }
-         //End of contructors
+        //End of contructors
 
         public Piece GetPiece(int line, int column)
         {
             return piecesArrangement[line, column];
         }
 
-        public void addressPiece(Piece piece, Position position)
+        public Piece GetPiece(Position position)
         {
+            return piecesArrangement[position.Line, position.Column];
+        }
+
+        public void AddressPiece(Piece piece, Position position)
+        {
+            if (!CheckEmptyAddress(position))
+            {
+                throw new BoardExceptions("This position is ocupied by another piece!");
+            }
             piecesArrangement[position.Line, position.Column] = piece;
             piece.Position = position;
+        }
+
+        /// <summary> 
+        /// The test is performed outside the "ValidadePosition" method because 
+        /// there may be other tests for other games, so later on we can implement a inheritance class
+        /// for checkers or any other board game and crete specifics tests for each kind of game - E.Costa
+        ///</summary>
+        public bool CheckBoardLimits(Position position)  
+        {
+            if (position.Line > Lines || position.Column > Columns || position.Line < 0 || position.Column < 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void ValidadePosition(Position position)
+        {
+            if (!CheckBoardLimits(position))
+            {
+                throw new BoardExceptions("Invalid position!");
+            }
+
+        }
+
+        public bool CheckEmptyAddress(Position position)
+        {
+            ValidadePosition(position);
+            if (GetPiece(position) == null)
+            {
+                return true; //Empty address
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }
