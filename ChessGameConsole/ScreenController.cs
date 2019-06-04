@@ -15,7 +15,7 @@ namespace ChessGameConsole
                 {
                     if (board.GetPiece(i, j) != null)
                     {
-                        Console.Write(board.GetPiece(i, j) + " ");
+                        Console.Write(board.GetPiece(i, j).ToString() + " ");  //fazer identificação da peça
                     }
                     else
                     {

@@ -12,11 +12,12 @@ namespace Board
         public int QtyMovement { get; protected set; }
         public BoardTable Board { get; protected set; }
 
-        public Piece(Position position, Color color, int qtyMovement, BoardTable board)
+        public Piece(Color color, BoardTable board)
         {
-            Position = position;
+            Position = null;
             Color = color;
             Board = board;
+            QtyMovement = 0;
         }
     }
 }

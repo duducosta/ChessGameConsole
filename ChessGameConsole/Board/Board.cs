@@ -8,22 +8,27 @@ namespace Board
     {
         public int Lines { get; set; }
         public int Columns { get; set; }
-        private Piece[,] pieces;
+        private Piece[,] piecesArrangement;
 
         //Constructors
         public BoardTable(int lines, int columns)
         {
             Lines = lines;
             Columns = columns;
-            pieces = new Piece[lines, columns];
+            piecesArrangement = new Piece[lines, columns];
         }
          //End of contructors
 
         public Piece GetPiece(int line, int column)
         {
-            return pieces[line, column];
+            return piecesArrangement[line, column];
         }
 
+        public void addressPiece(Piece piece, Position position)
+        {
+            piecesArrangement[position.Line, position.Column] = piece;
+            piece.Position = position;
+        }
 
     }
 }
