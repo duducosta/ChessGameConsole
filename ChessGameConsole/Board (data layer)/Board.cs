@@ -7,7 +7,7 @@ namespace Board
 {
     class BoardTable
     {
-        public int Lines { get; set; }
+        public int Lines { get; private set; }
         public int Columns { get; set; }
         private Piece[,] piecesArrangement;
 
@@ -40,12 +40,27 @@ namespace Board
             piece.Position = position;
         }
 
+        public Piece RemovePiece(Position position)
+        {
+            if (!CheckEmptyAddress(position))
+            {
+                Piece aux = GetPiece(position);
+                GetPiece(position).Position = null;
+                piecesArrangement[position.Line, position.Column] = null;
+                return aux;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary> 
         /// The test is performed outside the "ValidadePosition" method because 
         /// there may be other tests for other games, so later on we can implement a inheritance class
         /// for checkers or any other board game and crete specifics tests for each kind of game - E.Costa
         ///</summary>
-        public bool CheckBoardLimits(Position position)  
+        public bool CheckBoardLimits(Position position)
         {
             if (position.Line > Lines || position.Column > Columns || position.Line < 0 || position.Column < 0)
             {

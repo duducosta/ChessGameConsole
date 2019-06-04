@@ -19,5 +19,12 @@ namespace Board
             Board = board;
             QtyMovement = 0;
         }
+
+        public void IncreaseQtyMovement()
+        {
+            QtyMovement++;
+        }
+
+
     }
 }

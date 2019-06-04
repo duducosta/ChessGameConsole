@@ -5,10 +5,10 @@ using Board;
 
 namespace Chess
 {
-    class Torre : Piece
+    class Bishop : Piece
     {
         //Constructor
-        public Torre(Color color, BoardTable board) : base(color, board)
+        public Bishop(Color color, BoardTable board) : base(color, board)
         {
 
         }
@@ -18,7 +18,7 @@ namespace Chess
 
         public override string ToString()
         {
-            return "T";
+            return "B";
         }
 
 

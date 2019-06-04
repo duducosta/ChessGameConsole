@@ -5,20 +5,20 @@ using Board;
 
 namespace Chess
 {
-    class Rei : Piece
+    class Rook : Piece
     {
         //Constructor
-        public Rei(Color color, BoardTable board) : base(color, board)
+        public Rook(Color color, BoardTable board) : base(color, board)
         {
 
         }
 
         //End of contructors
 
-        
+
         public override string ToString()
         {
-            return "R";
+            return "T";
         }
 
 

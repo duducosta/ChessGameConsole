@@ -9,12 +9,12 @@ namespace Chess
     /// <summary>
     /// Class for translation of zero based address in C# array to chess based position (1A, 2B, etc)
     /// </summary>
-    class ChessPositions
+    class ChessPosition
     {
         public char Column { get; set; }
         public int Line { get; set; }
 
-        public ChessPositions(char column, int line)
+        public ChessPosition(char column, int line)
         {
             Column = column;
             Line = line;
