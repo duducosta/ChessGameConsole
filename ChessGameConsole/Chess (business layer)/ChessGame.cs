@@ -10,21 +10,39 @@ namespace Chess
         public BoardTable Board { get; set; }
         public int Turn { get; set; }
         public Color CurrentPlayer { get; set; }
+        public bool EndGame { get; set; }
 
         public ChessGame()
         {
             Board = new BoardTable(8, 8);
             Turn = 1;
             CurrentPlayer = Color.White;
-            //Fazer método para iniciar todas as peças
+            EndGame = false;
+        }
+                                                                                                    
+        public void PlayerMove()
+        {
+            Console.WriteLine();
+            Console.Write("Which position you which to move FROM: ");
+            string aux = Console.ReadLine();
+            ChessPosition chessOrigin = 
+                new ChessPosition(char.Parse(aux.Substring(0, 1)), int.Parse(aux.Substring(1, 1)));
+
+            Console.Write("Which position you which to move TO: ");
+            aux = Console.ReadLine();
+            ChessPosition chessDestiny =
+                new ChessPosition(char.Parse(aux.Substring(0, 1)), int.Parse(aux.Substring(1, 1)));
+
+            ChessMove(chessOrigin.TranslateChessToZeroBased(), chessDestiny.TranslateChessToZeroBased());
         }
 
         public void ChessMove(Position origin, Position destiny)
         {
-            Piece movedPiece = Board.RemovePiece(origin);
+            Piece movedPiece = Board.RemovePiece(origin); //tratar erro quando apontar uma casa vazia
             movedPiece.IncreaseQtyMovement();
             Piece takenPiece = Board.RemovePiece(destiny);
             Board.AddressPiece(movedPiece, destiny);
+            Turn++;
         }
 
         public void StartPieces()

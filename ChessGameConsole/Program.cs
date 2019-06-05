@@ -10,7 +10,14 @@ namespace ChessGameConsole
         {
             ChessGame Game = new ChessGame();
             Game.StartPieces();
-            ScreenController.PrintBoard(Game.Board);
+
+            while (!Game.EndGame)
+            {
+                ScreenController.PrintBoard(Game.Board);
+                Game.PlayerMove();
+                Console.Clear();
+            }
+
 
 
 
