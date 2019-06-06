@@ -9,7 +9,7 @@ namespace Board
     {
         public int Lines { get; private set; }
         public int Columns { get; set; }
-        private Piece[,] piecesArrangement;
+        public Piece[,] piecesArrangement;
 
         //Constructors
         public BoardTable(int lines, int columns)
@@ -25,9 +25,9 @@ namespace Board
             return piecesArrangement[line, column];
         }
 
-        public Piece GetPiece(Position position)
+        public Piece GetPiece(Position pos)
         {
-            return piecesArrangement[position.Line, position.Column];
+            return piecesArrangement[pos.Line, pos.Column];
         }
 
         public void AddressPiece(Piece piece, Position position)
@@ -72,19 +72,20 @@ namespace Board
             }
         }
 
-        public void ValidadePosition(Position position)
+        public bool ValidadePosition(Position pos)
         {
-            if (!CheckBoardLimits(position))
+            if (!CheckBoardLimits(pos))
             {
                 throw new BoardExceptions("Invalid position!");
-            }
 
+            }
+            return true;
         }
 
-        public bool CheckEmptyAddress(Position position)
+        public bool CheckEmptyAddress(Position pos)
         {
-            ValidadePosition(position);
-            if (GetPiece(position) == null)
+            ValidadePosition(pos);
+            if (GetPiece(pos) == null)
             {
                 return true; //Empty address
             }
@@ -93,6 +94,8 @@ namespace Board
                 return false;
             }
         }
+
+
 
     }
 }

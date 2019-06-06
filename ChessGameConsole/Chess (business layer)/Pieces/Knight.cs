@@ -21,6 +21,10 @@ namespace Chess
             return "K";
         }
 
-
+        public override bool[,] PossibleMoves()
+        {
+            bool[,] possibleMoves = new bool[Board.Lines, Board.Columns];
+            return possibleMoves;
+        }
     }
 }

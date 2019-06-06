@@ -26,5 +26,18 @@ namespace Board
         }
         //End of overrides
 
+        /// <summary>
+        /// Methos create to facilitate the navigation on the board.
+        /// Just change the coordinates of a position.
+        /// Do not use to move pices around the board!
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="column"></param>
+        public void ChangeToPosition(int line, int column)
+        {
+            Line = line;
+            Column = column;
+        }
+
     }
 }
