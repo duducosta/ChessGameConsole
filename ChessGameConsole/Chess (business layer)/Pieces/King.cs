@@ -21,54 +21,60 @@ namespace Chess
             return "K";
         }
 
+        private bool EmptyOrEnemy(Position position)
+        {
+            Piece piece = Board.GetPiece(position);
+            return piece == null || piece.Color != Color;
+        }
+
         public override bool[,] PossibleMoves()
         {
             bool[,] possibleMoves = new bool[Board.Lines, Board.Columns];
-            Position virtualPosition = new Position(Position.Line, Position.Column);
+            Position virtualPosition = new Position(0, 0);
 
             //North
 
-            virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column + 0);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column);
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
 
             //South
 
-            virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column + 0);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column);
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
 
             //East
 
-            virtualPosition.ChangeToPosition(Position.Line +0, Position.Column + 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            virtualPosition.ChangeToPosition(Position.Line, Position.Column + 1);
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
 
             //West
-            virtualPosition.ChangeToPosition(Position.Line + 0, Position.Column - 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            virtualPosition.ChangeToPosition(Position.Line, Position.Column - 1);
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
 
             //NW
 
-            virtualPosition.ChangeToPosition(Position.Line -1, Position.Column -1);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column - 1);
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
 
             //NE
 
-            virtualPosition.ChangeToPosition(Position.Line -1, Position.Column + 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column + 1);
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -76,7 +82,7 @@ namespace Chess
             //SE
 
             virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column + 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -84,7 +90,7 @@ namespace Chess
             //SW
 
             virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column - 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.ValidadePosition(virtualPosition))
+            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }

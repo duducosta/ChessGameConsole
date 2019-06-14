@@ -8,10 +8,10 @@ namespace Chess
 {
     class ChessGame
     {
-        public BoardTable Board { get; set; }
-        public int Turn { get; set; }
-        public Color CurrentPlayer { get; set; }
-        public bool EndGame { get; set; }
+        public BoardTable Board { get; private set; }
+        public int Turn { get; private set; }
+        public Color CurrentPlayer { get; private set; }
+        public bool EndGame { get; private set; }
 
         public ChessGame()
         {
@@ -47,19 +47,25 @@ namespace Chess
             movedPiece.IncreaseQtyMovement();
             Piece takenPiece = Board.RemovePiece(destiny);
             Board.AddressPiece(movedPiece, destiny);
+        }
+
+        public void MakeMove(Position origin, Position destiny)
+        {
+            ChessMove(origin, destiny);
             Turn++;
+            //Chamar método para mudar jogador
         }
 
         public void StartPieces()
         {
-            Board.AddressPiece(new Rook(Color.Black, Board), new ChessPosition('e',5).TranslateChessToZeroBased());  //Posição correta é a8, somente para teste deixar nessa posição
+            //Board.AddressPiece(new Rook(Color.Black, Board), new ChessPosition('a',8).TranslateChessToZeroBased());  
             //Board.AddressPiece(new Rook(Color.Black, Board), new ChessPosition('h',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Knight(Color.Black, Board), new ChessPosition('b',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Knight(Color.Black, Board), new ChessPosition('g',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Bishop(Color.Black, Board), new ChessPosition('c',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Bishop(Color.Black, Board), new ChessPosition('f',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Queen(Color.Black, Board), new ChessPosition('d',8).TranslateChessToZeroBased());
-            //Board.AddressPiece(new King(Color.Black, Board), new ChessPosition('e',8).TranslateChessToZeroBased());
+            Board.AddressPiece(new King(Color.Black, Board), new ChessPosition('e',5).TranslateChessToZeroBased()); //Posição correta é e8, somente para teste deixar nessa posição
             //Board.AddressPiece(new Pawn(Color.Black, Board), new ChessPosition('a',7).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.Black, Board), new ChessPosition('b',7).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.Black, Board), new ChessPosition('c',7).TranslateChessToZeroBased());

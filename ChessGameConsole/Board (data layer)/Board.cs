@@ -7,7 +7,7 @@ namespace Board
 {
     class BoardTable
     {
-        public int Lines { get; private set; }
+        public int Lines { get; set; }
         public int Columns { get; set; }
         public Piece[,] piecesArrangement;
 
@@ -30,6 +30,12 @@ namespace Board
             return piecesArrangement[pos.Line, pos.Column];
         }
 
+        public bool CheckEmptyAddress(Position pos) //Equivalente ao existepeca()
+        {
+            ValidadePosition(pos);
+            return GetPiece(pos) == null;
+        }
+
         public void AddressPiece(Piece piece, Position position)
         {
             if (!CheckEmptyAddress(position))
@@ -42,58 +48,42 @@ namespace Board
 
         public Piece RemovePiece(Position position)
         {
-            if (!CheckEmptyAddress(position))
-            {
-                Piece aux = GetPiece(position);
-                GetPiece(position).Position = null;
-                piecesArrangement[position.Line, position.Column] = null;
-                return aux;
-            }
-            else
+            if (GetPiece(position) == null)
             {
                 return null;
             }
+            Piece auxPiece = GetPiece(position);
+            auxPiece.Position = null;
+            piecesArrangement[position.Line, position.Column] = null;
+            return auxPiece;
         }
 
-        /// <summary> 
-        /// The test is performed outside the "ValidadePosition" method because 
-        /// there may be other tests for other games, so later on we can implement a inheritance class
-        /// for checkers or any other board game and crete specifics tests for each kind of game - E.Costa
-        ///</summary>
         public bool CheckBoardLimits(Position position)
         {
-            if (position.Line > Lines || position.Column > Columns || position.Line < 0 || position.Column < 0)
+            if (position.Line >= Lines || position.Column >= Columns || position.Line < 0 || position.Column < 0)
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
+
         }
 
-        public bool ValidadePosition(Position pos)
+        public void ValidadePosition(Position pos)
         {
             if (!CheckBoardLimits(pos))
             {
                 throw new BoardExceptions("Invalid position!");
-
             }
-            return true;
+            
         }
 
-        public bool CheckEmptyAddress(Position pos)
-        {
-            ValidadePosition(pos);
-            if (GetPiece(pos) == null)
-            {
-                return true; //Empty address
-            }
-            else
-            {
-                return false;
-            }
-        }
+
+
+   
+
+
+
+
 
 
 

@@ -16,7 +16,6 @@ namespace ChessGameConsole
                 for (int j = 0; j < board.Lines; j++)
                 {
                     PrintPieceOnBoard(board.GetPiece(i, j));
-
                 }
                 Console.WriteLine();
             }

@@ -8,38 +8,30 @@ namespace ChessGameConsole
     {
         static void Main(string[] args)
         {
-            ChessGame Game = new ChessGame();
-
-            while (!Game.EndGame)
+            try
             {
-                Console.Clear();
-                ScreenController.PrintBoard(Game.Board);
-                Console.WriteLine();
-                Console.Write("Which position you which to move FROM: ");
-                Position origin = ScreenController.ReadChessNotation().TranslateChessToZeroBased();
-                bool[,] possibleMoves = Game.Board.GetPiece(origin).PossibleMoves();
+                ChessGame Game = new ChessGame();
 
-                Console.Clear();
-                ScreenController.PrintBoard(Game.Board, possibleMoves);
-                Console.WriteLine();
-                Console.Write("Which position you which to move TO: ");
-                Position destiny = ScreenController.ReadChessNotation().TranslateChessToZeroBased();
-                Game.ChessMove(origin, destiny);
-
-
-
+                while (!Game.EndGame)
+                {
+                    Console.Clear();
+                    ScreenController.PrintBoard(Game.Board);
+                    Console.WriteLine();
+                    Console.Write("Which position you which to move FROM: ");
+                    Position origin = ScreenController.ReadChessNotation().TranslateChessToZeroBased();
+                    bool[,] possibleMoves = Game.Board.GetPiece(origin).PossibleMoves();
+                    Console.Clear();
+                    ScreenController.PrintBoard(Game.Board, possibleMoves);
+                    Console.WriteLine();
+                    Console.Write("Which position you which to move TO: ");
+                    Position destiny = ScreenController.ReadChessNotation().TranslateChessToZeroBased();
+                    Game.ChessMove(origin, destiny);
+                }
             }
-
-
-
-
-
-
-
-
-
-
-
+            catch (BoardExceptions e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
