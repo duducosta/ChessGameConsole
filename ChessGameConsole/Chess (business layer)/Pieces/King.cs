@@ -18,7 +18,7 @@ namespace Chess
         
         public override string ToString()
         {
-            return "K";
+            return "@";
         }
 
         private bool EmptyOrEnemy(Position position)

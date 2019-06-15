@@ -16,14 +16,7 @@ namespace ChessGameConsole
                 {
                     try
                     {
-                        Console.Clear();
-                        ScreenController.PrintBoard(Game.Board);
-                        //Dá para melhorar isso
-                        Console.WriteLine();
-                        Console.WriteLine("Turn: " + Game.Turn);
-                        Console.WriteLine("Current player: " + Game.CurrentPlayer);
-                        Console.WriteLine();
-                        //
+                        ScreenController.PrintGame(Game);
                         Console.Write("Which position you which to move FROM: ");
                         Position origin = ScreenController.ReadChessNotation().TranslateChessToZeroBased();
                         Game.ValidadeOrigin(origin);
