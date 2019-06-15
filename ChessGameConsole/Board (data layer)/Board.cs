@@ -30,7 +30,7 @@ namespace Board
             return piecesArrangement[pos.Line, pos.Column];
         }
 
-        public bool CheckEmptyAddress(Position pos) //Equivalente ao existepeca()
+        public bool CheckEmptyAddress(Position pos) 
         {
             ValidadePosition(pos);
             return GetPiece(pos) == null;

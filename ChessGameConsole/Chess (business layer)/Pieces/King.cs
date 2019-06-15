@@ -35,7 +35,7 @@ namespace Chess
             //North
 
             virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition)&& EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -43,7 +43,7 @@ namespace Chess
             //South
 
             virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -51,14 +51,14 @@ namespace Chess
             //East
 
             virtualPosition.ChangeToPosition(Position.Line, Position.Column + 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
 
             //West
             virtualPosition.ChangeToPosition(Position.Line, Position.Column - 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -66,7 +66,7 @@ namespace Chess
             //NW
 
             virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column - 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -74,7 +74,7 @@ namespace Chess
             //NE
 
             virtualPosition.ChangeToPosition(Position.Line - 1, Position.Column + 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -82,7 +82,7 @@ namespace Chess
             //SE
 
             virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column + 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }
@@ -90,7 +90,7 @@ namespace Chess
             //SW
 
             virtualPosition.ChangeToPosition(Position.Line + 1, Position.Column - 1);
-            if (EmptyOrEnemy(virtualPosition) && Board.CheckBoardLimits(virtualPosition))
+            if (Board.CheckBoardLimits(virtualPosition) && EmptyOrEnemy(virtualPosition))
             {
                 possibleMoves[virtualPosition.Line, virtualPosition.Column] = true;
             }

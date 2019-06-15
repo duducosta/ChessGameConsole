@@ -22,28 +22,9 @@ namespace Chess
             StartPieces();
         }
                                                                                                     
-        //public void PlayerMove()
-        //{
-            //Console.WriteLine();
-            //Console.Write("Which position you which to move FROM: ");
-            //string aux = Console.ReadLine();
-            //ChessPosition chessOrigin = 
-            //    new ChessPosition(char.Parse(aux.Substring(0, 1)), int.Parse(aux.Substring(1, 1)));
-            //Console.Clear();
-            //ScreenController.PrintBoard(Board);
-            // ScreenController.PrintBoard(Board, Board.GetPiece(chessOrigin.TranslateChessToZeroBased()).PossibleMoves());
-
-        //    Console.Write("Which position you which to move TO: ");
-        //    aux = Console.ReadLine();
-        //    ChessPosition chessDestiny =
-        //        new ChessPosition(char.Parse(aux.Substring(0, 1)), int.Parse(aux.Substring(1, 1)));
-
-        //    ChessMove(chessOrigin.TranslateChessToZeroBased(), chessDestiny.TranslateChessToZeroBased());
-        //}
-
         public void ChessMove(Position origin, Position destiny)
         {
-            Piece movedPiece = Board.RemovePiece(origin); //tratar erro quando apontar uma casa vazia
+            Piece movedPiece = Board.RemovePiece(origin); 
             movedPiece.IncreaseQtyMovement();
             Piece takenPiece = Board.RemovePiece(destiny);
             Board.AddressPiece(movedPiece, destiny);
@@ -53,7 +34,19 @@ namespace Chess
         {
             ChessMove(origin, destiny);
             Turn++;
-            //Chamar método para mudar jogador
+            MudaJogador();
+        }
+
+        public void MudaJogador()
+        {
+            if(CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
         }
 
         public void StartPieces()
@@ -65,7 +58,7 @@ namespace Chess
             //Board.AddressPiece(new Bishop(Color.Black, Board), new ChessPosition('c',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Bishop(Color.Black, Board), new ChessPosition('f',8).TranslateChessToZeroBased());
             //Board.AddressPiece(new Queen(Color.Black, Board), new ChessPosition('d',8).TranslateChessToZeroBased());
-            Board.AddressPiece(new King(Color.Black, Board), new ChessPosition('e',5).TranslateChessToZeroBased()); //Posição correta é e8, somente para teste deixar nessa posição
+           // Board.AddressPiece(new King(Color.Black, Board), new ChessPosition('e', 8).TranslateChessToZeroBased()); //Posição correta é e8, somente para teste deixar nessa posição
             //Board.AddressPiece(new Pawn(Color.Black, Board), new ChessPosition('a',7).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.Black, Board), new ChessPosition('b',7).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.Black, Board), new ChessPosition('c',7).TranslateChessToZeroBased());
@@ -82,7 +75,7 @@ namespace Chess
             //Board.AddressPiece(new Bishop(Color.White, Board), new ChessPosition('c', 1).TranslateChessToZeroBased());
             //Board.AddressPiece(new Bishop(Color.White, Board), new ChessPosition('f', 1).TranslateChessToZeroBased());
             //Board.AddressPiece(new Queen(Color.White, Board), new ChessPosition('d', 1).TranslateChessToZeroBased());
-            //Board.AddressPiece(new King(Color.White, Board), new ChessPosition('e', 1).TranslateChessToZeroBased());
+            Board.AddressPiece(new King(Color.White, Board), new ChessPosition('e', 1).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.White, Board), new ChessPosition('a', 2).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.White, Board), new ChessPosition('b', 2).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.White, Board), new ChessPosition('c', 2).TranslateChessToZeroBased());
@@ -91,11 +84,32 @@ namespace Chess
             //Board.AddressPiece(new Pawn(Color.White, Board), new ChessPosition('f', 2).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.White, Board), new ChessPosition('g', 2).TranslateChessToZeroBased());
             //Board.AddressPiece(new Pawn(Color.White, Board), new ChessPosition('h', 2).TranslateChessToZeroBased());
-
-
         }
 
 
 
+        public void ValidadeOrigin(Position position)
+        {
+            if (Board.GetPiece(position) == null)
+            {
+                throw new BoardExceptions("There is no piece on this position");
+            }
+            if (Board.GetPiece(position).Color != CurrentPlayer)
+            {
+                throw new BoardExceptions("The current move is to be done by the " + CurrentPlayer + " player");
+            }
+            if (!Board.GetPiece(position).HasPossibleMoves())
+            {
+                throw new BoardExceptions("This piece has no possible moves");
+            }
+        }
+
+        public void ValidateDestiny(Position origin, Position destiny)
+        {
+            if(!Board.GetPiece(origin).CanMoveTo(destiny))
+            {
+                throw new BoardExceptions("Invalid destiny position");
+            }
+        }
     }
 }
