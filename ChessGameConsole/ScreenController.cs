@@ -15,11 +15,23 @@ namespace ChessGameConsole
             Console.WriteLine();
             PrintCapturedPieces(game);
             Console.WriteLine("Turn: " + game.Turn);
+            if (!game.EndGame)
+            {
             Console.WriteLine("Current player: " + game.CurrentPlayer);
+
             if (game.PlayerInCheck)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(">>>>>> " + game.CurrentPlayer + " Is in CHECK!!!   <<<<<<");
+                Console.ResetColor();
+            }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(game.EnemyIs(game.CurrentPlayer) + " Player is on check mate");
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("GAME OVER!!!");
                 Console.ResetColor();
             }
             Console.WriteLine();

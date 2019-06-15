@@ -67,9 +67,15 @@ namespace Chess
             {
                 PlayerInCheck = true;
             }
-            
-            Turn++;
-            MudaJogador();
+            if (IsInCheckMate(EnemyIs(CurrentPlayer)))
+            {
+                EndGame = true;
+            }
+            else
+            {
+                Turn++;
+                MudaJogador();
+            }
         }
 
         public void MudaJogador()
@@ -111,7 +117,7 @@ namespace Chess
             return inBoardPieces;
         }
 
-        private Color EnemyIs(Color color)
+        public Color EnemyIs(Color color)
         {
             if (color == Color.White)
             {
@@ -146,6 +152,38 @@ namespace Chess
             return false;
         }
 
+        public bool IsInCheckMate(Color color)
+        {
+            if (!IsInCheck(color))
+            {
+                return false;
+            }
+            foreach (Piece piece in InBoardPiecesByColor(color))
+            {
+                bool[,] aux = piece.PossibleMoves();
+                for (int i = 0; i < Board.Lines; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (aux[i, j])
+                        {
+                            Position origin = piece.Position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPiece = ChessMove(origin, destiny);
+                            bool isIncheck = IsInCheck(color);
+                            UndoChessMove(origin, destiny, capturedPiece);
+                            if (!isIncheck)
+                            {
+                                return false;
+                            }
+
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void StartNewPiece(char column, int line, Piece piece)
         {
             Board.AddressPiece(piece, new ChessPosition(column, line).TranslateChessToZeroBased());
@@ -178,7 +216,7 @@ namespace Chess
             //StartNewPiece('c', 1, new Bishop(Color.White, Board));
             //StartNewPiece('f', 1, new Bishop(Color.White, Board));
             //StartNewPiece('d', 1, new Queen(Color.White, Board));
-            StartNewPiece('e', 1, new King(Color.White, Board));
+            StartNewPiece('e', 1, new King(Color.White, Board));  
             //StartNewPiece('a', 2, new Pawn(Color.White, Board));
             //StartNewPiece('b', 2, new Pawn(Color.White, Board));
             //StartNewPiece('c', 2, new Pawn(Color.White, Board));
