@@ -25,6 +25,11 @@ namespace Board
             QtyMovement++;
         }
 
+        public void DecreaseQtyMovement()
+        {
+            QtyMovement--;
+        }
+
         public abstract bool[,] PossibleMoves();
 
         public bool HasPossibleMoves()

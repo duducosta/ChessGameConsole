@@ -16,6 +16,12 @@ namespace ChessGameConsole
             PrintCapturedPieces(game);
             Console.WriteLine("Turn: " + game.Turn);
             Console.WriteLine("Current player: " + game.CurrentPlayer);
+            if (game.PlayerInCheck)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(">>>>>> " + game.CurrentPlayer + " Is in CHECK!!!   <<<<<<");
+                Console.ResetColor();
+            }
             Console.WriteLine();
         }
 

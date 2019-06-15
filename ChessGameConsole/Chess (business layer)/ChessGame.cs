@@ -15,6 +15,7 @@ namespace Chess
         public bool EndGame { get; private set; }
         public HashSet<Piece> GamePieces { get; set; }
         public HashSet<Piece> CapturedPieces { get; set; }
+        public bool PlayerInCheck;
 
 
         public ChessGame()
@@ -26,9 +27,10 @@ namespace Chess
             GamePieces = new HashSet<Piece>();
             CapturedPieces = new HashSet<Piece>();
             StartPieces();
+            PlayerInCheck = false;
         }
 
-        public void ChessMove(Position origin, Position destiny)
+        public Piece ChessMove(Position origin, Position destiny)
         {
             Piece movedPiece = Board.RemovePiece(origin);
             movedPiece.IncreaseQtyMovement();
@@ -38,11 +40,34 @@ namespace Chess
             {
                 CapturedPieces.Add(takenPiece);
             }
+            return takenPiece;
+        }
+
+        public void UndoChessMove(Position origin, Position destiny, Piece takenPiece)
+        {
+            Piece returnedPiece = Board.RemovePiece(destiny);
+            returnedPiece.DecreaseQtyMovement();
+            Board.AddressPiece(returnedPiece, origin);
+            if (takenPiece != null)
+            {
+                Board.AddressPiece(takenPiece, destiny);
+                CapturedPieces.Remove(takenPiece);
+            }
         }
 
         public void MakeMove(Position origin, Position destiny)
         {
-            ChessMove(origin, destiny);
+            Piece takenPiece = ChessMove(origin, destiny);
+            if (IsInCheck(CurrentPlayer))
+            {
+                UndoChessMove(origin, destiny, takenPiece);
+                throw new BoardExceptions("You can not put your self in check");
+            }
+            if (IsInCheck(EnemyIs(CurrentPlayer)))
+            {
+                PlayerInCheck = true;
+            }
+            
             Turn++;
             MudaJogador();
         }
@@ -86,7 +111,40 @@ namespace Chess
             return inBoardPieces;
         }
 
+        private Color EnemyIs(Color color)
+        {
+            if (color == Color.White)
+            {
+                return Color.Black;
+            }
+            return Color.White;
+        }
 
+        private Piece FindKing(Color color)
+        {
+            foreach (Piece piece in InBoardPiecesByColor(color))
+            {
+                if (piece is King)
+                {
+                    return piece;
+                }
+            }
+            return null;
+        }
+
+        public bool IsInCheck(Color color)
+        {
+            Piece King = FindKing(color);
+            foreach (Piece piece in InBoardPiecesByColor(EnemyIs(color)))
+            {
+                bool[,] aux = piece.PossibleMoves();
+                if (aux[King.Position.Line, King.Position.Column])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public void StartNewPiece(char column, int line, Piece piece)
         {
