@@ -17,14 +17,14 @@ namespace ChessGameConsole
             Console.WriteLine("Turn: " + game.Turn);
             if (!game.EndGame)
             {
-            Console.WriteLine("Current player: " + game.CurrentPlayer);
+                Console.WriteLine("Current player: " + game.CurrentPlayer);
 
-            if (game.PlayerInCheck)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(">>>>>> " + game.CurrentPlayer + " Is in CHECK!!!   <<<<<<");
-                Console.ResetColor();
-            }
+                if (game.PlayerInCheck)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(">>>>>> " + game.CurrentPlayer + " Is in CHECK!!!   <<<<<<");
+                    Console.ResetColor();
+                }
             }
             else
             {
@@ -120,9 +120,42 @@ namespace ChessGameConsole
         public static ChessPosition ReadChessNotation()
         {
             string chessNotation = Console.ReadLine();
-            char column = chessNotation[0];
-            int line = int.Parse(chessNotation[1] + "");
-            return new ChessPosition(column, line);
+            if (ChessNotationCheck(chessNotation))
+            {
+                char column = chessNotation[0];
+                int line = int.Parse(chessNotation[1] + "");
+                return new ChessPosition(column, line);
+            }
+            else
+            {
+                throw new BoardExceptions("Invalid coordinate");
+            }
+        }
+
+        public static bool ChessNotationCheck(string notation)
+        {
+            string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h" };
+            int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            string letter = notation.Substring(0, 1);
+            int number;
+
+            bool letterCheck;
+            bool numberCheck;
+
+            if (int.TryParse(notation.Substring(1, 1), out number))
+            {
+
+            }
+            else
+            {
+                number = 99;
+            }
+
+            letterCheck = (Array.Exists(letters, l => l.Equals(notation)));
+            numberCheck = (Array.Exists(letters, l => l.Equals(notation)));
+
+            return (letterCheck && numberCheck);
         }
 
     }

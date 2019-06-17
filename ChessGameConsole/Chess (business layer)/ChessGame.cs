@@ -146,10 +146,31 @@ namespace Chess
                 UndoChessMove(origin, destiny, takenPiece);
                 throw new BoardExceptions("You can not put your self in check");
             }
+
+            Piece movedPiece = Board.GetPiece(destiny);
+            //Special move: Pawn Promotion
+            if (movedPiece is Pawn)
+            {
+                if ((movedPiece.Color == Color.White && destiny.Line == 0) || (movedPiece.Color == Color.Black && destiny.Line == 7) )
+                {
+                    Board.RemovePiece(destiny);
+                    GamePieces.Remove(movedPiece);
+                    Piece newQueen = new Queen(movedPiece.Color, Board);
+                    Board.AddressPiece(newQueen, destiny);
+                    GamePieces.Add(newQueen);
+                }
+            }
+            //EndGame Pawn Promotion
+
             if (IsInCheck(EnemyIs(CurrentPlayer)))
             {
                 PlayerInCheck = true;
             }
+            else
+            {
+                PlayerInCheck = false;
+            }
+
             if (IsInCheckMate(EnemyIs(CurrentPlayer)))
             {
                 EndGame = true;
@@ -161,7 +182,6 @@ namespace Chess
             }
 
             //Special move: en passant
-            Piece movedPiece = Board.GetPiece(destiny);
             if (movedPiece is Pawn && (destiny.Line == origin.Line + 2 || destiny.Line == origin.Line - 2))
             {
                 VulnerableToEnPassant = movedPiece;
@@ -288,13 +308,13 @@ namespace Chess
         {
             StartNewPiece('a', 8, new Rook(Color.Black, Board));
             StartNewPiece('h', 8, new Rook(Color.Black, Board));
-            //StartNewPiece('b', 8, new Knight(Color.Black, Board));
-            //StartNewPiece('g', 8, new Knight(Color.Black, Board));
-            //StartNewPiece('c', 8, new Bishop(Color.Black, Board));
-            //StartNewPiece('f', 8, new Bishop(Color.Black, Board));
-            //StartNewPiece('d', 8, new Queen(Color.Black, Board));
+            StartNewPiece('b', 8, new Knight(Color.Black, Board));
+            StartNewPiece('g', 8, new Knight(Color.Black, Board));
+            StartNewPiece('c', 8, new Bishop(Color.Black, Board));
+            StartNewPiece('f', 8, new Bishop(Color.Black, Board));
+            StartNewPiece('d', 8, new Queen(Color.Black, Board));
             StartNewPiece('e', 8, new King(Color.Black, Board, this));
-            StartNewPiece('b', 4, new Pawn(Color.Black, Board, this)); //'b', 7,
+            StartNewPiece('b', 7, new Pawn(Color.Black, Board, this));
             StartNewPiece('c', 7, new Pawn(Color.Black, Board, this));
             StartNewPiece('d', 7, new Pawn(Color.Black, Board, this));
             StartNewPiece('e', 7, new Pawn(Color.Black, Board, this));
@@ -305,11 +325,11 @@ namespace Chess
 
             StartNewPiece('a', 1, new Rook(Color.White, Board));
             StartNewPiece('h', 1, new Rook(Color.White, Board));
-            //StartNewPiece('b', 1, new Knight(Color.White, Board));
-            //StartNewPiece('g', 1, new Knight(Color.White, Board));
-            //StartNewPiece('c', 1, new Bishop(Color.White, Board));
-            //StartNewPiece('f', 1, new Bishop(Color.White, Board));
-            //StartNewPiece('d', 1, new Queen(Color.White, Board));
+            StartNewPiece('b', 1, new Knight(Color.White, Board));
+            StartNewPiece('g', 1, new Knight(Color.White, Board));
+            StartNewPiece('c', 1, new Bishop(Color.White, Board));
+            StartNewPiece('f', 1, new Bishop(Color.White, Board));
+            StartNewPiece('d', 1, new Queen(Color.White, Board));
             StartNewPiece('e', 1, new King(Color.White, Board, this));
             StartNewPiece('b', 2, new Pawn(Color.White, Board, this));
             StartNewPiece('c', 2, new Pawn(Color.White, Board, this));
@@ -317,7 +337,7 @@ namespace Chess
             StartNewPiece('e', 2, new Pawn(Color.White, Board, this));
             StartNewPiece('a', 2, new Pawn(Color.White, Board, this));
             StartNewPiece('f', 2, new Pawn(Color.White, Board, this));
-            StartNewPiece('g', 5, new Pawn(Color.White, Board, this)); //'g', 2,
+            StartNewPiece('g', 2, new Pawn(Color.White, Board, this));
             StartNewPiece('h', 2, new Pawn(Color.White, Board, this));
         }
 
