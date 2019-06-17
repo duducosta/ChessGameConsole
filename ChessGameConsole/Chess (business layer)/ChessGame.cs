@@ -192,8 +192,8 @@ namespace Chess
 
         public void StartPieces()
         {
-            StartNewPiece('a', 8, new Rook(Color.Black, Board));
-            StartNewPiece('h', 8, new Rook(Color.Black, Board));
+            //StartNewPiece('a', 8, new Rook(Color.Black, Board));
+            //StartNewPiece('h', 8, new Rook(Color.Black, Board));
             //StartNewPiece('b', 8, new Knight(Color.Black, Board));
             //StartNewPiece('g', 8, new Knight(Color.Black, Board));
             //StartNewPiece('c', 8, new Bishop(Color.Black, Board));
@@ -204,7 +204,7 @@ namespace Chess
             //StartNewPiece('b', 7, new Pawn(Color.Black, Board));
             //StartNewPiece('c', 7, new Pawn(Color.Black, Board));
             //StartNewPiece('d', 7, new Pawn(Color.Black, Board));
-            //StartNewPiece('e', 7, new Pawn(Color.Black, Board));
+            StartNewPiece('e', 7, new Pawn(Color.Black, Board));
             //StartNewPiece('f', 7, new Pawn(Color.Black, Board));
             //StartNewPiece('g', 7, new Pawn(Color.Black, Board));
             //StartNewPiece('h', 7, new Pawn(Color.Black, Board));
@@ -220,7 +220,7 @@ namespace Chess
             //StartNewPiece('a', 2, new Pawn(Color.White, Board));
             //StartNewPiece('b', 2, new Pawn(Color.White, Board));
             //StartNewPiece('c', 2, new Pawn(Color.White, Board));
-            //StartNewPiece('d', 2, new Pawn(Color.White, Board));
+            StartNewPiece('d', 2, new Pawn(Color.White, Board));
             //StartNewPiece('e', 2, new Pawn(Color.White, Board));
             //StartNewPiece('f', 2, new Pawn(Color.White, Board));
             //StartNewPiece('g', 2, new Pawn(Color.White, Board));
