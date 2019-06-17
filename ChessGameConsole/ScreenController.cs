@@ -136,13 +136,10 @@ namespace ChessGameConsole
         {
             string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h" };
             int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8 };
-
             string letter = notation.Substring(0, 1);
             int number;
-
             bool letterCheck;
             bool numberCheck;
-
             if (int.TryParse(notation.Substring(1, 1), out number))
             {
 
@@ -151,12 +148,16 @@ namespace ChessGameConsole
             {
                 number = 99;
             }
-
-            letterCheck = (Array.Exists(letters, l => l.Equals(notation)));
-            numberCheck = (Array.Exists(letters, l => l.Equals(notation)));
-
+            letterCheck = (Array.Exists(letters, l => l.Equals(letter)));
+            numberCheck = (Array.Exists(numbers, l => l.Equals(number)));
             return (letterCheck && numberCheck);
         }
 
+
+        public static bool CheckPlayerChoice(string playerChoice)
+        {
+            string[] choices = { "queen", "bishop", "knight", "rook", "QUEEN", "BISHOP", "KNIGHT", "ROOK", "Queen", "Bishop", "Knight", "Rook" };
+            return (Array.Exists(choices, l => l.Equals(playerChoice)));
+        }
     }
 }
