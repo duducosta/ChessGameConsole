@@ -211,7 +211,7 @@ namespace Chess
 
             StartNewPiece('a', 1, new Rook(Color.White, Board));
             StartNewPiece('h', 1, new Rook(Color.White, Board));
-            //StartNewPiece('b', 1, new Knight(Color.White, Board));
+            //StartNewPiece('b', 1, new Knight(Color.White, Board)); //'b', 1
             //StartNewPiece('g', 1, new Knight(Color.White, Board));
             //StartNewPiece('c', 1, new Bishop(Color.White, Board));
             //StartNewPiece('f', 1, new Bishop(Color.White, Board));
