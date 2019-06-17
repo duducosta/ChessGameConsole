@@ -23,12 +23,10 @@ namespace ChessGameConsole
                         bool[,] possibleMoves = Game.Board.GetPiece(origin).PossibleMoves();
                         Console.Clear();
                         ScreenController.PrintBoard(Game.Board, possibleMoves);
-                        //Dá para melhorar isso
                         Console.WriteLine();
                         Console.WriteLine("Turn: " + Game.Turn);
                         Console.WriteLine("Current player: " + Game.CurrentPlayer);
                         Console.WriteLine();
-                        //
                         Console.Write("Which position you which to move TO: ");
                         Position destiny = ScreenController.ReadChessNotation().TranslateChessToZeroBased();
                         Game.ValidateDestiny(origin, destiny);
